@@ -1,0 +1,13 @@
+﻿2 People should be able to communicate with each other without eavesdropping.
+  * Note: I likely need End-to-End encryption for this. Aka Client-side encryption.
+  * Note: With E2E, only sender and receiver can read the message. Not even the server can read it. 
+  * Note: If it was server-side encryption, the server could read the message, basically being an eavesdropper.
+  * Note: If it was server-side encryption, a malicious attacker who gains access to server, could decrypt the messages.
+  * Note: With E2E, the server is just a messenger. It doesn't know what the message is. Attacker would need to get the key from the client.
+  * Note: I should put the encryption Logic inside a JS file that is linked inside the Index.HTML file. 
+Use SignalR for real-time communication... because I have used SignalR before. 
+UI be simple but obvious how to use.
+
+Hand in: Link to GitHub repo with code. Public obviously.
+Repo must have a README.md file with instructions on how to run the application and how I use Cryptography to prevent eavesdropping. 
+Include screenshots of my solution in action

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Super Secure Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+</head>
+<body>
+    <h2>Super Secure Chat</h2>
+    <div>
+        <input type="text" id="username" placeholder="Enter your name" />
+        <input type="text" id="message" placeholder="Type a message" />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <ul id="messagesList"></ul>
+
+    <script src="encryption.js"></script>
+
+    <script>
+        // SignalR Connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+
+
+        connection.start().then(() => {
+            console.log("SignalR Connection established.");
+        }).catch(err => {
+            console.error("SignalR connection failed", err);
+        });
+
+        async function sendMessage() {
+        }
+
+    </script>
+    
+</body>
+</html>
