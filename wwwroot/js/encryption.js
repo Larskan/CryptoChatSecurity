@@ -15,3 +15,4 @@ function importSecretKey(rawKey) {
 async function encryptMessage(message) { }
 
 async function decryptMessage(encryptedMessage) { }
+//Test
