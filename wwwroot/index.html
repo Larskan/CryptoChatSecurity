@@ -15,7 +15,7 @@
     </div>
     <ul id="messagesList"></ul>
 
-    <script src="encryption.js"></script>
+    <script src="js/encryption.js"></script>
 
     <script>
         // SignalR Connection
@@ -23,7 +23,15 @@
             .withUrl("/chatHub")
             .build();
 
+        connection.on("ReceiveMessage", async (user, encryptedMessage, nonce, tag) => {
+            const decryptedMessage = await decryptMessage(encryptedMessage, nonce, tag);
 
+            // List item to display decrypted message
+            // TODO: This can be prettier.
+            const li = document.createElement("li");
+            li.textContent = `${user}: ${decryptedMessage}`;
+            document.getElementById("messagesList").appendChild(li);
+        });
 
         connection.start().then(() => {
             console.log("SignalR Connection established.");
@@ -32,9 +40,26 @@
         });
 
         async function sendMessage() {
-        }
+            const user = document.getElementById("username").value;
+            const message = document.getElementById("message").value;
 
+            if (!message) return;
+
+            // Encrypt the message and get the encrypted message, nonce and tag
+            const { encryptedMessage, nonce, tag } = await encryptMessage(message);
+
+            console.log("Message before sending:", {
+                user,
+                encryptedMessage,
+                nonce,
+                tag
+            });
+            //send the encrypted message, nonce and tag to the server
+            connection.invoke("SendMessage", user, encryptedMessage, nonce, tag).catch(err => console.error("Error sending message: ", err));
+
+            // Clear the message input
+            document.getElementById("message").value = "";
+        }
     </script>
-    
 </body>
 </html>
